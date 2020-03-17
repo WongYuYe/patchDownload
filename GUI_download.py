@@ -23,36 +23,6 @@ class MyThread(threading.Thread):
         
     def run(self):
         self.func(*self.args)
-# class MyThread(threading.Thread):
-#     def __init__(self, func, *args):
-#         super().__init__()
-#         # self.__flag = threading.Event()     # 用于暂停线程的标识
-#         # self.__flag.set()       # 设置为True
-#         # self.__running = threading.Event()      # 用于停止线程的标识
-#         # self.__running.set()      # 将running设置为True
-
-#         self.func = func
-#         self.args = args
-        
-#         self.setDaemon(True)
-#         self.start()
-
-#     def run(self):
-#         while self.__running.isSet():
-#             self.__flag.wait()      # 为True时立即返回, 为False时阻塞直到内部的标识位为True后返回
-#             print(time.time())
-#             time.sleep(1)
-
-#     def pause(self):
-#         self.__flag.clear()     # 设置为False, 让线程阻塞
-
-#     def resume(self):
-#         self.__flag.set()    # 设置为True, 让线程停止阻塞
-
-#     def stop(self):
-#         self.__flag.set()       # 将线程从暂停状态恢复, 如何已经暂停的话
-#         self.__running.clear()        # 设置为False        
-#         txt.insert(0.0, '\n-----------------批量下载停止！！！-----------------')
 
 class PatchDownload():
     def __init__(self):
@@ -72,6 +42,7 @@ class PatchDownload():
         url = self.main_url + 'ma_publiccenter/weChat/order/orderDetail?orderCode=%s'% orderCode + '&&hosCode=%s'% hosCode
         r = requests.get(url)
         data = json.loads(r.text)
+        print(data)
         if data['resCode'] != '00':
             self.dialog(data['msg'])
             # return None
